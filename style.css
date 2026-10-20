@@ -16,7 +16,7 @@ button { font: inherit; cursor: pointer; }.form-row button { background: #3159c8
 :focus-visible { outline: 3px solid #91acff; outline-offset: 3px; }
 #message { min-height: 24px; margin: 13px 0; color: #3159c8; font-size: 13px; }#message[data-error="true"] { color: #b42318; }
 #empty-state { background: #f6f8fc; text-align: center; color: #61708b; border-radius: 10px; padding: 27px 12px; }
-#todo-list { list-style: none; margin: 0; padding: 0; display: grid; gap: 10px; }
+#todo-list { list-style: none; margin: 0; padding: 0 0 24px; display: grid; gap: 10px; min-height: 32px; }
 #todo-list li { display: flex; gap: 12px; align-items: center; padding: 12px 14px; border: 1px solid #e2e8f3; background: #f7f9fd; border-radius: 10px; min-width: 0; }
 .task-text { flex: 1; min-width: 0; overflow-wrap: anywhere; }.done .task-text { text-decoration: line-through; color: #738097; }
 .toggle { width: 25px; height: 25px; flex: 0 0 auto; border: 1px solid #7d94c2; background: #fff; color: #3159c8; border-radius: 50%; }

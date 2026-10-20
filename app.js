@@ -49,17 +49,12 @@ function render() {
     const li = document.createElement('li');
     li.dataset.id = todo.id;
     if (todo.completed) li.classList.add('done');
-    li.addEventListener('click', () => toggleTodo(todo.id));
     const toggle = document.createElement('button');
     toggle.type = 'button';
     toggle.className = 'toggle';
     toggle.dataset.action = 'toggle';
     toggle.textContent = todo.completed ? '✓' : '';
     toggle.setAttribute('aria-label', `${todo.completed ? '标记未完成' : '标记完成'}：${todo.text}`);
-    toggle.addEventListener('click', event => {
-      event.stopPropagation();
-      toggleTodo(todo.id);
-    });
     const text = document.createElement('span');
     text.className = 'task-text';
     text.textContent = todo.text;
@@ -73,10 +68,6 @@ function render() {
     icon.setAttribute('aria-hidden', 'true');
     del.append(icon);
     del.setAttribute('aria-label', `删除：${todo.text}`);
-    del.addEventListener('click', event => {
-      event.stopPropagation();
-      removeTodo(todo.id);
-    });
     li.append(toggle, text, del);
     fragment.append(li);
   }
@@ -96,12 +87,14 @@ function addTodo(text) {
   notify(saved ? '任务已添加。' : '任务已添加，但无法保存；刷新后可能丢失。', !saved);
   return true;
 }
-function removeTodo(id) {
+function deleteTodo(id) {
+  console.log('[delete]', id);
   todos = todos.filter(todo => todo.id !== id);
   const saved = save(); render();
   notify(saved ? '任务已删除。' : '任务已删除，但无法保存；刷新后可能恢复。', !saved);
 }
 function toggleTodo(id) {
+  console.log('[toggle]', id);
   todos = todos.map(todo => todo.id === id ? {...todo, completed: !todo.completed} : todo);
   const saved = save(); render();
   notify(saved ? '任务状态已更新。' : '任务状态已更新，但无法保存；刷新后可能恢复。', !saved);
@@ -120,6 +113,24 @@ function setFilter(value) {
   });
   render();
 }
+// The UL survives render(). All task interactions are delegated here once.
+function handleListClick(event) {
+  if (!(event.target instanceof Element)) return;
+  const item = event.target.closest('li');
+  if (!item || !list.contains(item)) return;
+  const id = item.dataset.id;
+  if (!id) return;
+  // dataset is a string; resolve the original ID type for W7 numeric IDs too.
+  const task = todos.find(todo => String(todo.id) === id);
+  if (!task) return;
+  const delBtn = event.target.closest('[data-action="delete"]');
+  if (delBtn && item.contains(delBtn)) {
+    deleteTodo(task.id);
+  } else {
+    toggleTodo(task.id);
+  }
+}
+list.addEventListener('click', handleListClick);
 document.querySelectorAll('[data-filter]').forEach(button => {
   button.addEventListener('click', () => setFilter(button.dataset.filter));
 });
