@@ -22,5 +22,6 @@ button { font: inherit; cursor: pointer; }.form-row button { background: #3159c8
 .toggle { width: 25px; height: 25px; flex: 0 0 auto; border: 1px solid #7d94c2; background: #fff; color: #3159c8; border-radius: 50%; }
 .done .toggle { color: white; background: #3159c8; }
 .delete { flex: 0 0 auto; border: 0; background: transparent; color: #a13b3b; padding: 5px 8px; border-radius: 5px; }
+.edit { flex: 0 0 auto; border: 0; border-radius: 5px; color: #3159c8; background: #eaf0ff; padding: 5px 8px; font-size: 13px; }
 footer { margin-top: 17px; text-align: center; font-size: 12px; color: #68768d; }
 @media (max-width: 520px) { .app { margin: 25px auto; padding: 0 16px; }.panel { padding: 20px 18px; }h1 { font-size: 31px; }.form-row { flex-direction: column; }.form-row button { width: 100%; } }

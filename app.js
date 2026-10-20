@@ -58,6 +58,12 @@ function render() {
     const text = document.createElement('span');
     text.className = 'task-text';
     text.textContent = todo.text;
+    const edit = document.createElement('button');
+    edit.type = 'button';
+    edit.className = 'edit';
+    edit.dataset.action = 'edit';
+    edit.textContent = '编辑';
+    edit.setAttribute('aria-label', `编辑：${todo.text}`);
     const del = document.createElement('button');
     del.type = 'button';
     del.className = 'delete';
@@ -68,7 +74,7 @@ function render() {
     icon.setAttribute('aria-hidden', 'true');
     del.append(icon);
     del.setAttribute('aria-label', `删除：${todo.text}`);
-    li.append(toggle, text, del);
+    li.append(toggle, text, edit, del);
     fragment.append(li);
   }
   list.replaceChildren(fragment);
@@ -99,6 +105,21 @@ function toggleTodo(id) {
   const saved = save(); render();
   notify(saved ? '任务状态已更新。' : '任务状态已更新，但无法保存；刷新后可能恢复。', !saved);
 }
+// W8 editing branch implemented with AI assistance at the user's request.
+function updateTodo(id, text) {
+  if (typeof text !== 'string') return false;
+  const value = text.trim();
+  if (!value || value.length > 100) {
+    notify('修改内容须为 1–100 个字符，不能只含空格。', true);
+    return false;
+  }
+  if (!todos.some(todo => todo.id === id)) return false;
+  console.log('[edit]', id);
+  todos = todos.map(todo => todo.id === id ? {...todo, text: value} : todo);
+  const saved = save(); render();
+  notify(saved ? '任务内容已更新。' : '任务已修改，但无法保存；刷新后可能恢复。', !saved);
+  return true;
+}
 // 用户明确要求由 AI 协助完成本周的 clearCompleted，而非声称独立手写。
 function clearCompleted() {
   todos = todos.filter(todo => !todo.completed);
@@ -124,8 +145,12 @@ function handleListClick(event) {
   const task = todos.find(todo => String(todo.id) === id);
   if (!task) return;
   const delBtn = event.target.closest('[data-action="delete"]');
+  const editBtn = event.target.closest('[data-action="edit"]');
   if (delBtn && item.contains(delBtn)) {
     deleteTodo(task.id);
+  } else if (editBtn && item.contains(editBtn)) {
+    const text = window.prompt('修改任务', task.text);
+    if (text !== null) updateTodo(task.id, text);
   } else {
     toggleTodo(task.id);
   }
