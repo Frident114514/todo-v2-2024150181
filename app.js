@@ -53,6 +53,7 @@ function render() {
     const toggle = document.createElement('button');
     toggle.type = 'button';
     toggle.className = 'toggle';
+    toggle.dataset.action = 'toggle';
     toggle.textContent = todo.completed ? '✓' : '';
     toggle.setAttribute('aria-label', `${todo.completed ? '标记未完成' : '标记完成'}：${todo.text}`);
     toggle.addEventListener('click', event => {
@@ -65,7 +66,12 @@ function render() {
     const del = document.createElement('button');
     del.type = 'button';
     del.className = 'delete';
-    del.textContent = '×';
+    del.dataset.action = 'delete';
+    const icon = document.createElement('span');
+    icon.className = 'delete-icon';
+    icon.textContent = '×';
+    icon.setAttribute('aria-hidden', 'true');
+    del.append(icon);
     del.setAttribute('aria-label', `删除：${todo.text}`);
     del.addEventListener('click', event => {
       event.stopPropagation();
