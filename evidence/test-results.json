@@ -1,0 +1,109 @@
+{
+  "date": "2026-10-20T06:56:22.991Z",
+  "browser": "155.0.8059.85",
+  "tests": [
+    {
+      "name": "点击任务文字，只切换",
+      "result": "PASS",
+      "logs": [
+        "[toggle] w8-01"
+      ],
+      "remaining": 2
+    },
+    {
+      "name": "点击删除按钮，只删除",
+      "result": "PASS",
+      "logs": [
+        "[delete] w8-01"
+      ],
+      "remaining": 1
+    },
+    {
+      "name": "点击删除按钮内部图标，正确删除",
+      "result": "PASS",
+      "logs": [
+        "[delete] w8-01"
+      ],
+      "remaining": 1
+    },
+    {
+      "name": "点击列表空白处，不报错",
+      "result": "PASS",
+      "logs": [],
+      "errors": [],
+      "remaining": 2
+    },
+    {
+      "name": "动态新增任务后，能正常交互",
+      "result": "PASS",
+      "logs": [
+        "[toggle] 1792479383861-1",
+        "[delete] 1792479383861-1"
+      ],
+      "listListeners": 1,
+      "childListeners": 0
+    },
+    {
+      "name": "编辑文本并刷新，保持完成状态",
+      "result": "PASS",
+      "text": "已编辑任务",
+      "completed": true,
+      "persisted": true
+    },
+    {
+      "name": "空字符串、纯空格、取消编辑均不修改",
+      "result": "PASS",
+      "unchanged": true
+    },
+    {
+      "name": "W7 数字 ID 在 dataset 转字符串后仍能定位",
+      "result": "PASS",
+      "remaining": 0
+    },
+    {
+      "name": "编辑使用 map 和对象展开，不改原数组/对象",
+      "result": "PASS",
+      "array": true,
+      "object": true,
+      "oldText": "复习事件委托"
+    },
+    {
+      "name": "非元素、容器外元素、缺失或无效 ID 防御",
+      "result": "PASS",
+      "errors": []
+    },
+    {
+      "name": "375px 移动布局无横向溢出",
+      "result": "PASS"
+    }
+  ],
+  "before": {
+    "logs": [
+      "[delete] w8-01",
+      "[toggle] w8-01"
+    ],
+    "remaining": [
+      {
+        "id": "w8-02",
+        "text": "记录边界测试",
+        "completed": false
+      }
+    ]
+  },
+  "boundary": {
+    "logs": [],
+    "errors": [],
+    "remaining": [
+      {
+        "id": "w8-01",
+        "text": "复习事件委托",
+        "completed": false
+      },
+      {
+        "id": "w8-02",
+        "text": "记录边界测试",
+        "completed": false
+      }
+    ]
+  }
+}
