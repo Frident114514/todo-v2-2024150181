@@ -1,0 +1,75 @@
+> todo-v2-week9-typescript@1.0.0 test
+> npm run build && node --test tests/*.test.mjs
+
+
+> todo-v2-week9-typescript@1.0.0 build
+> tsc -p tsconfig.json && esbuild src/app.ts --bundle --platform=browser --format=iife --target=es2022 --outfile=app.js
+
+
+  app.js  10.9kb
+
+⚡ Done in 6ms
+TAP version 13
+# Subtest: addTodo：去除前后空格，保留原列表，新增项默认未完成
+ok 1 - addTodo：去除前后空格，保留原列表，新增项默认未完成
+  ---
+  duration_ms: 0.75425
+  type: 'test'
+  ...
+# Subtest: addTodo：拦截空值、纯空格、非字符串和超过 100 字
+ok 2 - addTodo：拦截空值、纯空格、非字符串和超过 100 字
+  ---
+  duration_ms: 0.079125
+  type: 'test'
+  ...
+# Subtest: addTodo：100 字边界可添加，重复、负数和非安全整数 ID 被拒绝
+ok 3 - addTodo：100 字边界可添加，重复、负数和非安全整数 ID 被拒绝
+  ---
+  duration_ms: 0.091458
+  type: 'test'
+  ...
+# Subtest: toggleTodo：只切换指定项，且不改写原数组或原对象
+ok 4 - toggleTodo：只切换指定项，且不改写原数组或原对象
+  ---
+  duration_ms: 0.124208
+  type: 'test'
+  ...
+# Subtest: toggleTodo：不存在或非法 ID 不产生状态变化
+ok 5 - toggleTodo：不存在或非法 ID 不产生状态变化
+  ---
+  duration_ms: 0.059375
+  type: 'test'
+  ...
+# Subtest: dataset.id：只接受规范的正整数数字字符串
+ok 6 - dataset.id：只接受规范的正整数数字字符串
+  ---
+  duration_ms: 0.094333
+  type: 'test'
+  ...
+# Subtest: 持久化：无数据、损坏 JSON、非数组与脏项安全处理
+ok 7 - 持久化：无数据、损坏 JSON、非数组与脏项安全处理
+  ---
+  duration_ms: 0.355625
+  type: 'test'
+  ...
+# Subtest: 升级兼容：旧版字符串 ID 和重复 ID 迁移成唯一数字 ID
+ok 8 - 升级兼容：旧版字符串 ID 和重复 ID 迁移成唯一数字 ID
+  ---
+  duration_ms: 0.074167
+  type: 'test'
+  ...
+# Subtest: 序号、删除、编辑、清除完成项及筛选保持数据一致
+ok 9 - 序号、删除、编辑、清除完成项及筛选保持数据一致
+  ---
+  duration_ms: 0.220084
+  type: 'test'
+  ...
+1..9
+# tests 9
+# suites 0
+# pass 9
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 34.182125

@@ -1,12 +1,22 @@
-# Todo V2.0 · 第8周：事件委托与调试
+# Todo V2.0 · 第9周：TypeScript 与单元测试
 
 姓名：锡汉唐；学号：2024150181。
 
-直接打开 `index.html` 可使用本地演示。任务保存在浏览器的 `localStorage`；“全部 / 未完成 / 已完成”仅切换当前视图，刷新后回到“全部”。
+直接打开 `index.html` 可使用已构建的本地演示。修改 `src/` 后运行 `npm install` 和 `npm run build` 重新生成 `app.js`。任务保存在浏览器的 `localStorage`；“全部 / 未完成 / 已完成”仅切换当前视图，刷新后回到“全部”。
 
 功能：添加、删除、切换完成状态、编辑、筛选、刷新恢复；控制台可调用 `clearCompleted()`。编辑会保留完成状态，空字符串、纯空格和取消不会修改数据。
 
 数据流：`todos` 是唯一任务数据源；添加使用展开运算符，删除使用 `filter`，切换使用 `map` 和对象展开。操作后先 `save()`，再 `render()`。筛选只更改视图状态，不保存。
+
+## 第9周实现与验证
+
+- `src/todo-core.ts` 定义 `Todo` 接口并实现纯函数；`src/app.ts` 管理 DOM 与持久化，编译后的 `app.js` 已提交，双击 `index.html` 可直接打开。
+- `dataset.id` 经 `parseTodoId` 严格转换为安全的正整数；DOM 查询、点击目标、历史存储数据分别处理 `null` / 脏值，全项目新增 TS 代码无 `any`。
+- 沿用旧版 `localStorage` 键，自动迁移第 7/8 周的数字或 `timestamp-sequence` 字符串 ID，保留合法任务；损坏或异常记录不会导致页面崩溃。
+- 运行 `npm run typecheck` 做严格类型检查，`npm run test` 会先编译再执行 9 组 Node 单测，覆盖正常路径和边界拦截。`tests/draft/ai-first-pass.mjs` 是供审查的弱断言初稿，不进入正式测试。
+- 第 9 周协作记录：[锡汉唐2024150181AI协作日志W9.docx](reports/锡汉唐2024150181AI协作日志W9.docx)。
+
+以下保留第 8 周的开发与验证记录；`tests/verify.cjs` 是旧版页面的历史集成测试，不适用于重构后的代码。
 
 ## 第8周实现
 
