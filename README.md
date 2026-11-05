@@ -4,7 +4,7 @@
 
 先运行 `npm install`，再运行 `npm run dev`，通过 Vite 给出的本地地址访问页面；不能再通过双击 `index.html` 运行。生产构建使用 `npm run build`，产物在 `dist/`；可用 `npm run preview` 查看。根目录的 `app.js` 是第 9 周的历史构建产物，当前页面不再加载它。
 
-项目检查：`npm run build` 执行严格 TypeScript 类型检查及 Vite 打包；`npm run test` 执行 Vitest；`npx eslint src/` 扫描两个 TypeScript 源文件；`npm run format:check` 检查 Prettier 格式。ESLint 规则在 `.eslintrc.cjs`：复杂度 10、嵌套深度 3、禁止显式 `any`。本周实测构建通过、9 项 Vitest 测试通过、ESLint 0 error / 0 warning、Prettier 通过；Chrome 页面回归 9 个场景通过，详见 `evidence/w10-lint-output.txt` 和 `evidence/w10-browser-results.json`。
+项目检查：`npm run build` 执行严格 TypeScript 类型检查及 Vite 打包；`npm run test` 执行 Vitest；`npx eslint src/` 扫描两个 TypeScript 源文件；`npm run format:check` 检查 Prettier 格式。ESLint 规则在 `.eslintrc.cjs`：复杂度 10、嵌套深度 3、禁止显式 `any`。本周实测构建通过、9 项 Vitest 测试通过、ESLint 0 error / 0 warning、Prettier 通过；Chrome 页面回归 9 个场景通过。真实 Terminal 窗口截图见 `evidence/w10-real-terminal.png`，原始 Lint 输出见 `evidence/w10-lint-output.txt`，浏览器结果见 `evidence/w10-browser-results.json`。
 
 任务仍保存在浏览器原有的 `localStorage` 键 `szu-todo-v2-2024150181`，旧版数据可恢复；“全部 / 未完成 / 已完成”仅切换当前视图，刷新后回到“全部”。本周协作记录：[锡汉唐2024150181AI协作日志W10.docx](reports/锡汉唐2024150181AI协作日志W10.docx)。
 
