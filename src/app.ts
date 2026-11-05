@@ -12,7 +12,7 @@ import {
   type LoadResult,
   type Todo,
   type TodoFilter
-} from './todo-core.js';
+} from './todo-core';
 
 const KEY = 'szu-todo-v2-2024150181';
 
@@ -35,7 +35,7 @@ function readStored(): LoadResult {
     return decodeStoredTodos(localStorage.getItem(KEY));
   } catch (error) {
     console.error('恢复待办失败：', error);
-    return {todos: [], repaired: false, invalid: true};
+    return { todos: [], repaired: false, invalid: true };
   }
 }
 
@@ -71,7 +71,10 @@ function render(): void {
     toggle.className = 'toggle';
     toggle.dataset.action = 'toggle';
     toggle.textContent = todo.completed ? '✓' : '';
-    toggle.setAttribute('aria-label', `${todo.completed ? '标记未完成' : '标记完成'}：${todo.text}`);
+    toggle.setAttribute(
+      'aria-label',
+      `${todo.completed ? '标记未完成' : '标记完成'}：${todo.text}`
+    );
 
     const text = document.createElement('span');
     text.className = 'task-text';
@@ -157,31 +160,49 @@ function clearCompleted(): void {
 function setFilter(value: string | undefined): void {
   if (value !== 'all' && value !== 'active' && value !== 'done') return;
   filter = value;
-  filterButtons.forEach(button => button.setAttribute('aria-pressed', String(button.dataset.filter === value)));
+  filterButtons.forEach((button) =>
+    button.setAttribute('aria-pressed', String(button.dataset.filter === value))
+  );
   render();
 }
 
-list.addEventListener('click', (event: MouseEvent) => {
-  if (!(event.target instanceof Element)) return;
+function clickedTask(
+  event: MouseEvent
+): { target: Element; item: HTMLLIElement; id: number; todo: Todo } | null {
+  if (!(event.target instanceof Element)) return null;
   const item = event.target.closest<HTMLLIElement>('li');
-  if (item === null || !list.contains(item)) return;
+  if (item === null || !list.contains(item)) return null;
   const id = parseTodoId(item.dataset.id);
-  if (id === null) return;
-  const todo = todos.find(task => task.id === id);
-  if (todo === undefined) return;
+  if (id === null) return null;
+  const todo = todos.find((task) => task.id === id);
+  if (todo === undefined) return null;
+  return { target: event.target, item, id, todo };
+}
 
-  const action = event.target.closest<HTMLElement>('[data-action]');
-  if (action !== null && item.contains(action) && action.dataset.action === 'delete') {
-    deleteTodo(id);
-  } else if (action !== null && item.contains(action) && action.dataset.action === 'edit') {
-    const edited = window.prompt('修改任务', todo.text);
-    if (edited !== null) updateTodo(id, edited);
-  } else {
-    toggleTodo(id);
+function handleTaskClick(event: MouseEvent): void {
+  const clicked = clickedTask(event);
+  if (clicked === null) return;
+  const { target, item, id, todo } = clicked;
+  const action = target.closest<HTMLElement>('[data-action]');
+  if (action !== null && item.contains(action)) {
+    if (action.dataset.action === 'delete') {
+      deleteTodo(id);
+      return;
+    }
+    if (action.dataset.action === 'edit') {
+      const edited = window.prompt('修改任务', todo.text);
+      if (edited !== null) updateTodo(id, edited);
+      return;
+    }
   }
-});
+  toggleTodo(id);
+}
 
-filterButtons.forEach(button => button.addEventListener('click', () => setFilter(button.dataset.filter)));
+list.addEventListener('click', handleTaskClick);
+
+filterButtons.forEach((button) =>
+  button.addEventListener('click', () => setFilter(button.dataset.filter))
+);
 form.addEventListener('submit', (event: SubmitEvent) => {
   event.preventDefault();
   if (addTodo(input.value)) input.value = '';

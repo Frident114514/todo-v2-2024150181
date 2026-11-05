@@ -1,0 +1,11 @@
+$ npx eslint src/
+(no output: command exited successfully)
+exit code: 0
+
+$ npx eslint src/ --format json
+src/app.ts  errors=0  warnings=0
+src/todo-core.ts  errors=0  warnings=0
+TOTAL: 0 errors, 0 warnings; 2 TypeScript files checked
+
+Raw JSON from ESLint:
+[{"filePath":"/Users/animenzzz/Documents/Codex/2026-09-15/wos/work/week10/todo-v3/src/app.ts","messages":[],"suppressedMessages":[],"errorCount":0,"fatalErrorCount":0,"warningCount":0,"fixableErrorCount":0,"fixableWarningCount":0,"usedDeprecatedRules":[{"ruleId":"no-extra-semi","replacedBy":[]},{"ruleId":"no-mixed-spaces-and-tabs","replacedBy":[]}]},{"filePath":"/Users/animenzzz/Documents/Codex/2026-09-15/wos/work/week10/todo-v3/src/todo-core.ts","messages":[],"suppressedMessages":[],"errorCount":0,"fatalErrorCount":0,"warningCount":0,"fixableErrorCount":0,"fixableWarningCount":0,"usedDeprecatedRules":[{"ruleId":"no-extra-semi","replacedBy":[]},{"ruleId":"no-mixed-spaces-and-tabs","replacedBy":[]}]}]

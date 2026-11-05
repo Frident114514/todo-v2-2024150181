@@ -1,8 +1,16 @@
-# Todo V2.0 · 第9周：TypeScript 与单元测试
+# Todo V3.0 · 第10周：Vite 工程化
 
 姓名：锡汉唐；学号：2024150181。
 
-直接打开 `index.html` 可使用已构建的本地演示。修改 `src/` 后运行 `npm install` 和 `npm run build` 重新生成 `app.js`。任务保存在浏览器的 `localStorage`；“全部 / 未完成 / 已完成”仅切换当前视图，刷新后回到“全部”。
+先运行 `npm install`，再运行 `npm run dev`，通过 Vite 给出的本地地址访问页面；不能再通过双击 `index.html` 运行。生产构建使用 `npm run build`，产物在 `dist/`；可用 `npm run preview` 查看。根目录的 `app.js` 是第 9 周的历史构建产物，当前页面不再加载它。
+
+项目检查：`npm run build` 执行严格 TypeScript 类型检查及 Vite 打包；`npm run test` 执行 Vitest；`npx eslint src/` 扫描两个 TypeScript 源文件；`npm run format:check` 检查 Prettier 格式。ESLint 规则在 `.eslintrc.cjs`：复杂度 10、嵌套深度 3、禁止显式 `any`。本周实测构建通过、9 项 Vitest 测试通过、ESLint 0 error / 0 warning、Prettier 通过；Chrome 页面回归 9 个场景通过，详见 `evidence/w10-lint-output.txt` 和 `evidence/w10-browser-results.json`。
+
+任务仍保存在浏览器原有的 `localStorage` 键 `szu-todo-v2-2024150181`，旧版数据可恢复；“全部 / 未完成 / 已完成”仅切换当前视图，刷新后回到“全部”。本周协作记录：[锡汉唐2024150181AI协作日志W10.docx](reports/锡汉唐2024150181AI协作日志W10.docx)。
+
+## 第9周实现（历史记录）
+
+以下为 Vite 迁入前的第 9 周记录。那时可双击 `index.html`、`npm run build` 生成根目录 `app.js`；这些操作已被上面的第 10 周方式取代。
 
 功能：添加、删除、切换完成状态、编辑、筛选、刷新恢复；控制台可调用 `clearCompleted()`。编辑会保留完成状态，空字符串、纯空格和取消不会修改数据。
 
