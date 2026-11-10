@@ -153,6 +153,13 @@ button {
   min-width: 0;
   overflow-wrap: anywhere;
 }
+.task-toggle-text {
+  padding: 0;
+  border: 0;
+  background: transparent;
+  color: inherit;
+  text-align: left;
+}
 .done .task-text {
   text-decoration: line-through;
   color: #738097;

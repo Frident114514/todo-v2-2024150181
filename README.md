@@ -1,8 +1,18 @@
-# Todo V3.0 · 第10周：Vite 工程化
+# Todo V4.0 · 第11周：React 状态驱动重构
 
 姓名：锡汉唐；学号：2024150181。
 
-先运行 `npm install`，再运行 `npm run dev`，通过 Vite 给出的本地地址访问页面；不能再通过双击 `index.html` 运行。生产构建使用 `npm run build`，产物在 `dist/`；可用 `npm run preview` 查看。根目录的 `app.js` 是第 9 周的历史构建产物，当前页面不再加载它。
+运行 `npm install`、`npm run dev`，通过 Vite 的本地地址访问 React 版页面。`npm run build` 执行严格 TypeScript 类型检查与生产打包；`npm run test` 运行 9 项业务纯函数单测；`npm run lint` 和 `npm run format:check` 检查源码。不能再双击 `index.html` 运行。
+
+`src/components/` 包含 `TodoApp`、`TodoForm`、`TodoList`、`TodoItem` 四个组件：任务数组、筛选条件与提示消息由 React State 管理；Props 向下传数据、回调向上传事件。添加、切换、删除、编辑继续调用 `src/todo-core.ts` 的不可变纯函数。React 负责生成页面，不再由应用代码手动创建或修改任务节点。第 9/10 周的原生 DOM 入口和历史构建文件已从当前版本移除，仍可在 Git 历史中查看。
+
+原 `localStorage` 键 `szu-todo-v2-2024150181` 保持不变，旧版任务可迁移；开发模式下控制台输入 `todos` 可读取与 State 脱钩的快照，用于课程验证，生产包不暴露该调试属性。控制台仍可调用 `clearCompleted()`。Chrome 页面回归验证 9 个场景通过，见 `evidence/w11-browser-results.json`；真实窗口截图与协作记录见 `evidence/`、[锡汉唐2024150181AI协作日志W11.docx](reports/锡汉唐2024150181AI协作日志W11.docx)。
+
+## 第10周实现（历史记录）
+
+以下记录描述迁入 React 之前的 Vite + 原生 DOM 版本。其源码请在第 10 周 Git 提交中查看。
+
+先运行 `npm install`，再运行 `npm run dev`，通过 Vite 给出的本地地址访问页面；不能再通过双击 `index.html` 运行。生产构建使用 `npm run build`，产物在 `dist/`；可用 `npm run preview` 查看。根目录的 `app.js` 当时是第 9 周的历史构建产物。
 
 项目检查：`npm run build` 执行严格 TypeScript 类型检查及 Vite 打包；`npm run test` 执行 Vitest；`npx eslint src/` 扫描两个 TypeScript 源文件；`npm run format:check` 检查 Prettier 格式。ESLint 规则在 `.eslintrc.cjs`：复杂度 10、嵌套深度 3、禁止显式 `any`。本周实测构建通过、9 项 Vitest 测试通过、ESLint 0 error / 0 warning、Prettier 通过；Chrome 页面回归 9 个场景通过。真实 Terminal 窗口截图见 `evidence/w10-real-terminal.png`，原始 Lint 输出见 `evidence/w10-lint-output.txt`，浏览器结果见 `evidence/w10-browser-results.json`。
 
